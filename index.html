@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- displays site properly based on user's device -->
+
+    <link rel="icon" type="image/png" sizes="32x32" href="./assets/images/favicon-32x32.png">
+
+    <title>Frontend Mentor | Newsletter sign-up form with success message</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+      .attribution {
+        font-size: 11px;
+        text-align: center;
+      }
+
+      .attribution a {
+        color: hsl(228, 45%, 44%);
+      }
+    </style>
+  </head>
+
+  <body>
+
+    <!-- Sign-up form start -->
+    <main>
+      <div id="form">
+
+        <div class="img-mobile">
+          <img src="assets/images/illustration-sign-up-mobile.svg" alt="Illustration">
+        </div>
+
+        <div class="text">
+
+          <h1>Stay updated!</h1>
+
+          <div class="join">
+            Join 60,000+ product managers receiving monthly updates on:
+          </div>
+
+          <ul>
+            <li>Product discovery and building what matters</li>
+            <li>Measuring to ensure updates are a success</li>
+            <li>And much more!</li>
+          </ul>
+
+          <form onsubmit="return showSuccessMessage()" novalidate name="myForm">
+            <label for="email" id="label">Email address</label>
+            <span id="validation-text"></span>
+            <input type="email" name="email" placeholder="email@company.com">
+            <button type="submit">Subscribe to monthly newsletter</button>
+          </form>
+
+        </div>
+
+        <div class="img-desktop">
+          <img src="assets/images/illustration-sign-up-desktop.svg" alt="Illustration">
+        </div>
+
+      </div>
+      <!-- Sign-up form end -->
+
+      <!-- Success message start -->
+      <div id="successMessage" class="text">
+
+        <img src="assets/images/icon-success.svg" alt="Success icon">
+
+        <h1>Thanks for subscribing!</h1>
+
+        <div class="join confirmation">
+          A confirmation email has been sent to <span id="value_email"></span>.
+          Please open it and click the button inside to confirm your subscription.
+        </div>
+
+        <button>Dismiss message</button>
+
+      </div>
+    </main>
+    <!-- Success message end -->
+
+    <div class="attribution">
+      Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>.
+      Coded by <a href="https://github.com/liviagomesa">Livia Gomes</a>.
+    </div>
+
+    <script>
+      function showSuccessMessage() {
+        // This code blocks the default behavior of the form submit. Instead of realoading the page or redirecting it to the URL specified in the "action" attribute, it will show the success message.
+        event.preventDefault();
+
+        let input_email = document.forms["myForm"]["email"].value;
+        let regular_expression = /^[A-Za-z0-9_!#$%&'*+\/=?`{|}~^.-]+@[A-Za-z0-9.-]+$/gm;
+        let is_valid = regular_expression.test(input_email);
+        if (!is_valid) {
+          document.getElementById("validation-text").innerHTML = "Valid email required";
+          document.getElementById("label").style.display = "inline-block";
+          document.forms["myForm"]["email"].style = "border-color: hsl(4, 100%, 67%); background-color: hsla(4, 100%, 67%, 0.2); color: hsl(4, 100%, 67%);";
+        } else {
+          document.getElementById("form").style.display = "none";
+          document.getElementById("successMessage").style.display = "block";
+          document.getElementById("value_email").innerHTML = input_email;
+        }
+        return is_valid;
+      }
+    </script>
+
+  </body>
+
+</html>
